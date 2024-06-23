@@ -1,0 +1,76 @@
+
+---
+title: 'Marketing and Sales Report'
+author: 'Data Analysis Team'
+date: '`r Sys.Date()`'
+format: html
+---
+
+# Sales Performance by Region
+
+```{r,message=FALSE,warning=FALSE,echo=FALSE}
+# Load necessary libraries
+library(DBI)
+library(duckdb)
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+library(lubridate)
+library(forcats)
+library(gt)
+
+source("report_marketing_sales.R")
+```
+
+
+```{r,message=FALSE,warning=FALSE,echo=FALSE}
+gt::gt(sales_performance) %>%
+  gt::tab_header(
+    title = 'Sales Performance by Region'
+  ) |>
+  gt::cols_label(
+    city = md("**City**"),
+    total_salary = md("**Total Salary**"),
+    avg_salary ~ md("**Average Salary**"),
+    num_employees ~ md("**No. of Employees**")
+  )
+```
+
+```{r,message=FALSE,warning=FALSE,echo=FALSE}
+print(sales_performance_plot)
+```
+
+```{r,message=FALSE,warning=FALSE,echo=FALSE}
+gt::gt(salary_trends) %>%
+  gt::tab_header(
+    title = 'Employee Salary Trends Over Time'
+  )|>
+  gt::cols_label(
+    hire_year = md("**Hire Year**"),
+    avg_salary ~ md("**Average Salary**"),
+    num_employees ~ md("**No. of Employees**")
+  )
+```
+
+```{r,message=FALSE,warning=FALSE,echo=FALSE}
+print(salary_trends_plot)
+```
+
+```{r,message=FALSE,warning=FALSE,echo=FALSE}
+gt::gt(supplier_contributions) %>%
+  gt::tab_header(
+    title = 'Supplier Contributions to Coffee Shops'
+  )|>
+  gt::cols_label(
+    supplier_name = md("**Name**"),
+    city ~ md("**City**"),
+    num_shops ~ md("**No. of Shops**")
+  )
+```
+
+```{r,message=FALSE,warning=FALSE,echo=FALSE}
+print(supplier_contributions_plot)
+```
+
+
+
