@@ -19,6 +19,7 @@ suppliers <- dbReadTable(con, "suppliers")
 
 # Enhanced Analysis
 # 1. Sales Performance by Region (using salaries as a proxy for sales)
+
 sales_performance <- employees %>%
   left_join(shops, by = "coffeeshop_id") %>%
   left_join(locations, by = "city_id") %>%
@@ -43,28 +44,19 @@ supplier_contributions <- suppliers %>%
 
 # Visualizations
 
-# Color palette
-# Qualitative -------------------------------------------------------------
-
-scale_color_ga_qualitative <- function() {
-  
-  scale_color_manual(values = c("#012f49",
-    "#1a435b",
-    "#33586d"
-  ))
-  
-}
-
-
-
 # 1. Sales Performance by Region
-sales_performance_plot <- ggplot(sales_performance, aes(x = reorder(city, -total_salary), y = total_salary, fill = country)) +
+sales_performance_plot <- ggplot(sales_performance, 
+                                 aes(x = fct_reorder(city, total_salary,
+                                                     ), 
+                                     y = total_salary, 
+                                     fill = country)) +
   geom_bar(stat = "identity") +
   labs(title = "Sales Performance by City (Total Salary as Proxy)",
        x = "City",
        y = "Total Salary") +
   theme_minimal() +
   coord_flip()
+
 
 # 2. Employee Salary Trends Over Time
 salary_trends_plot <- ggplot(salary_trends, aes(x = hire_year)) +
@@ -92,6 +84,12 @@ supplier_contributions_plot <- ggplot(supplier_contributions,
 
 # Close the database connection
 dbDisconnect(con)
+
+
+
+
+
+
 
 # Create a Quarto Markdown Report
 report_content <- "

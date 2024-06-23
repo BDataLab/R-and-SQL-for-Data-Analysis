@@ -1,4 +1,3 @@
-
 ---
 title: 'Marketing and Sales Report'
 author: 'Data Analysis Team'
@@ -20,14 +19,14 @@ library(forcats)
 library(gt)
 
 source("report_marketing_sales.R")
-```
 
+```
 
 ```{r,message=FALSE,warning=FALSE,echo=FALSE}
 gt::gt(sales_performance) %>%
   gt::tab_header(
     title = 'Sales Performance by Region'
-  ) |>
+  ) %>% 
   gt::cols_label(
     city = md("**City**"),
     total_salary = md("**Total Salary**"),
@@ -44,7 +43,7 @@ print(sales_performance_plot)
 gt::gt(salary_trends) %>%
   gt::tab_header(
     title = 'Employee Salary Trends Over Time'
-  )|>
+  ) %>% 
   gt::cols_label(
     hire_year = md("**Hire Year**"),
     avg_salary ~ md("**Average Salary**"),
@@ -71,6 +70,3 @@ gt::gt(supplier_contributions) %>%
 ```{r,message=FALSE,warning=FALSE,echo=FALSE}
 print(supplier_contributions_plot)
 ```
-
-
-
